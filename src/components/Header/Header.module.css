@@ -9,5 +9,9 @@
   gap: 32px;
 }
 .menu > * {
+  font-family: var(--font-manrope), sans-serif;
   padding: 25px 0;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.25;
 }
