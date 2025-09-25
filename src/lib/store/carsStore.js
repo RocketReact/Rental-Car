@@ -10,7 +10,6 @@ const useCarsStore = create((set, get) => ({
     set({ loading: true });
     try {
       const response = await getCars(params);
-      console.log(response.data);
       set({ cars: response.data.cars, loading: false });
     } catch (error) {
       set({ loading: false });

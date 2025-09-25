@@ -1,7 +1,10 @@
 .carsContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 в ряд */
-    gap:32px;
+    column-gap  :32px;
+    row-gap: 48px;
+    font-family: var(--font-manrope), sans-serif;
+    letter-spacing: 0;
 }
 .carItem {
 }
@@ -10,5 +13,19 @@
     height: 268px;
     object-fit: cover;
     border-radius: 14px;
-    margin: 0 auto;
+    margin-bottom: 16px;;
+}
+.model {
+    color: var(--button);
+}
+.textContainerForCar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.descriptionsUnderBrand {
+    color: var(--gray);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
 }
