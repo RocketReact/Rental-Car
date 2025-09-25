@@ -4,7 +4,6 @@ import RentalCar from "/RentalCar.svg";
 const Header = () => {
   return (
     <header className="container">
-      <h1 className={css.visuallyHidden}>Rental Cars</h1>
       <nav className={css.nav}>
         <Link to="/">
           <img src={RentalCar} alt="Rental Car" />

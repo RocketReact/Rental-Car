@@ -1,0 +1,33 @@
+.banner {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+.bannerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center;
+}
+.textBannerContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    text-align: center;
+}
+.textBannerContainer >* {
+    color: var(--white);
+}
+.secondTitle {
+
+}
+.btnBanner {
+    padding:  12px 99px;
+    background-color: var(--button);
+    border: none;
+    border-radius: 12px;
+}

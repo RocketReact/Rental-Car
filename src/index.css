@@ -13,6 +13,10 @@
   --button: #3470ff;
   --button-hover: #0b44cd;
 }
+html, body {
+  height: 100%;
+  overflow-y: hidden;
+}
 
 *,
 *::before,
