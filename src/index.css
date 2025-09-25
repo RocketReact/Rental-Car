@@ -16,7 +16,6 @@
 html,
 body {
   height: 100%;
-  overflow-y: hidden;
 }
 button {
   background-color: var(--button);
@@ -28,6 +27,10 @@ button {
 button:hover {
   cursor: pointer;
   background-color: var(--button-hover);
+}
+
+li {
+  list-style: none;
 }
 *,
 *::before,

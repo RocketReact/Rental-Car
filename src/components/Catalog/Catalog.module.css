@@ -1,0 +1,14 @@
+.carsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 в ряд */
+    gap:32px;
+}
+.carItem {
+}
+.img {
+    width: 276px;
+    height: 268px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin: 0 auto;
+}
