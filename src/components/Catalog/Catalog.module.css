@@ -28,4 +28,12 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 1.3;
+    margin-bottom: 28px;
+}
+.btnBanner {
+    width: 100%;
+    padding: 12px 80px;
+    font-weight: 600;
+    line-height: 1.4;
+
 }

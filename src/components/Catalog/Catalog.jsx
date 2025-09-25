@@ -1,6 +1,7 @@
 import useCarsStore from "../../lib/store/carsStore.js";
 import { useEffect } from "react";
 import css from "./Catalog.module.css";
+import { Link } from "react-router-dom";
 export default function Catalog() {
   const { cars, loading, fetchCars } = useCarsStore();
   console.log(cars);
@@ -40,6 +41,9 @@ export default function Catalog() {
                 .join(" | ")}{" "}
               | {car.rentalCompany} | <br /> {car.type} | {car.mileage} km
             </p>
+            <Link to={`/cars/${car.id}`}>
+              <button className={css.btnBanner}>Read more</button>
+            </Link>
           </li>
         ))}
       </section>
