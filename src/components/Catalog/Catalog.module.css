@@ -75,5 +75,5 @@
   color: white; /* обводка белая */
 }
 .filled {
-  color: var(--button); /* закрашенное синее */
+  color:var(--button); /* закрашенное синее */
 }
