@@ -1,10 +1,11 @@
 import useCarsStore from "../../lib/store/carsStore.js";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 export default function Catalog() {
-  const { cars, loading, fetchCars } = useCarsStore();
-  console.log(cars);
+  const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
+  const lastCarRef = useRef(null);
+  const prevCarsLength = useRef(cars.length);
   useEffect(() => {
     const params = {
       page: 1,
@@ -14,13 +15,36 @@ export default function Catalog() {
     fetchCars(params);
   }, [fetchCars]);
 
+  const handleLoadMore = (e) => {
+    e.preventDefault();
+    prevCarsLength.current = cars.length;
+    loadMoreCars();
+  };
+  useEffect(() => {
+    if (cars.length > prevCarsLength.current && lastCarRef.current) {
+      // Прокручиваем к первой из новых машин
+      const newCarIndex = prevCarsLength.current;
+      const newCarElement = document.querySelector(
+        `[data-car-index="${newCarIndex}"]`,
+      );
+      if (newCarElement) {
+        newCarElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [cars.length]);
+
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="container">
-      <section className={css.carsContainer}>
-        {cars.map((car) => (
-          <li key={car.id} className={css.carItem}>
+    <section className={css.containerCatalog}>
+      <ul className={css.carsContainer}>
+        {cars.map((car, index) => (
+          <li
+            key={car.id}
+            className={css.carItem}
+            data-car-index={index}
+            ref={index === cars.length - 1 ? lastCarRef : null}
+          >
             <img
               className={css.img}
               src={car.img}
@@ -46,7 +70,18 @@ export default function Catalog() {
             </Link>
           </li>
         ))}
-      </section>
-    </div>
+      </ul>
+      <div className={css.containerLoadMore}>
+        {hasMore && (
+          <button
+            onClick={handleLoadMore}
+            className={css.loadMore}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Load more"}
+          </button>
+        )}
+      </div>
+    </section>
   );
 }
