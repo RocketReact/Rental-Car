@@ -1,7 +1,19 @@
 import css from "./NotFound.module.css";
 import carCrash from "/carCrashed.webp";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCarsBrand } from "../../lib/api/brands.js";
+
 export default function NotFound() {
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    async function fetchProduct() {
+      const data = await getCarsBrand();
+      setBrands(data);
+    }
+    fetchProduct();
+  }, []);
+  console.log(brands);
   return (
     <div className={css.mainContainerNotFound}>
       <h1 className={css.notFoundFirstTittle}>404</h1>

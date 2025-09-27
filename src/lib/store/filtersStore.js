@@ -3,9 +3,9 @@ import { devtools } from "zustand/middleware";
 
 export const useFiltersStore = create(
   devtools((set) => ({
-    // Данные, полученные с бэкенда для дропдаунов
+    // Данные для дропдаунов
     brands: [],
-    pricesPerHour: [],
+    priceOptions: [], // Уникальные цены из cars
 
     // Текущие выбранные значения в UI (не применённые)
     brand: "",
@@ -21,9 +21,9 @@ export const useFiltersStore = create(
       mileageTo: "",
     },
 
-    // Геттеры
+    // Сеттеры
     setBrands: (brands) => set({ brands }),
-    setPricesPerHour: (prices) => set({ pricesPerHour: prices }),
+    setPriceOptions: (prices) => set({ priceOptions: prices }),
 
     // Сеттеры для UI
     setBrand: (value) => set({ brand: value }),
@@ -31,7 +31,7 @@ export const useFiltersStore = create(
     setMileageFrom: (value) => set({ mileageFrom: value }),
     setMileageTo: (value) => set({ mileageTo: value }),
 
-    // Применить фильтры (по клику на кнопку "Поиск")
+    // Применить фильтры
     applyFilters: () =>
       set((state) => ({
         appliedFilters: {

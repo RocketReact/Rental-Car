@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import { useFiltersStore } from "../store/useFiltersStore";
-
+import { useFiltersStore } from "../../lib/store/filtersStore.js";
+import useCarsStore from "../../lib/store/carsStore.js";
+import { getCarsBrand } from "../../lib/api/brands.js";
+import css from "./Filters.module.css";
 const Filters = () => {
   const {
     brands,
-    pricesPerHour,
+    priceOptions,
     brand,
     pricePerHour,
     mileageFrom,
     mileageTo,
     setBrands,
-    setPricesPerHour,
+    setPriceOptions,
     setBrand,
     setPricePerHour,
     setMileageFrom,
@@ -19,156 +21,106 @@ const Filters = () => {
     resetFilters,
   } = useFiltersStore();
 
-  // Загрузка опций фильтров с бэкенда
+  const { cars } = useCarsStore();
+
+  // Загрузка брендов
   useEffect(() => {
-    const fetchFilterOptions = async () => {
+    const fetchBrands = async () => {
       try {
-        const res = await fetch("/api/filters"); // или куда у вас API
-        if (!res.ok) throw new Error("Failed to load filters");
-        const data = await res.json();
-        setBrands(data.brands || []);
-        setPricesPerHour(data.pricesPerHour || []);
+        const res = await getCarsBrand();
+        console.log("Brands array:", res.data);
+        setBrands(res.data || []);
       } catch (err) {
-        console.error("Ошибка загрузки фильтров:", err);
+        console.error("Ошибка загрузки брендов:", err);
       }
     };
 
-    fetchFilterOptions();
-  }, [setBrands, setPricesPerHour]);
+    fetchBrands();
+  }, [setBrands]);
+
+  // Извлечение уникальных цен из cars
+  useEffect(() => {
+    if (cars && cars.length > 0) {
+      const uniquePrices = [...new Set(cars.map((car) => car.rentalPrice))]
+        .filter((price) => price !== undefined && price !== null)
+        .sort((a, b) => a - b);
+
+      const priceOptions = uniquePrices.map((price) => ({
+        value: price,
+        label: `$${price}`,
+      }));
+
+      setPriceOptions(priceOptions);
+    }
+  }, [cars, setPriceOptions]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "16px",
-        alignItems: "center",
-        padding: "20px",
-        background: "#f9f9f9",
-        borderRadius: "8px",
-        flexWrap: "wrap",
-      }}
-    >
-      {/* Бренд */}
+    <div className={css.filtersMainContainer}>
+      {/* Brand */}
       <div>
-        <label
-          style={{ display: "block", fontSize: "14px", marginBottom: "4px" }}
-        >
-          Бренд
-        </label>
+        <label className={css.carBrandLabel}>Car brand</label>
         <select
           value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          style={{
-            padding: "8px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            minWidth: "150px",
+          onChange={(e) => {
+            console.log("Selected brand:", e.target.value);
+            setBrand(e.target.value);
           }}
+          className={css.selectFilters}
         >
-          <option value="">Все бренды</option>
-          {brands.map((b) => (
-            <option key={b.id} value={b.slug}>
-              {b.name}
+          <option value="">Choose a brand</option>
+          {brands.map((brandName, index) => (
+            <option key={`${brandName}-${index}`} value={brandName}>
+              {brandName}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Цена за 1 час */}
+      {/* Price / 1 hour */}
       <div>
-        <label
-          style={{ display: "block", fontSize: "14px", marginBottom: "4px" }}
-        >
-          Цена / 1 час
-        </label>
+        <label className={css.carBrandLabel}>Price / 1 hour</label>
         <select
           value={pricePerHour}
           onChange={(e) => setPricePerHour(e.target.value)}
-          style={{
-            padding: "8px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            minWidth: "150px",
-          }}
+          className={css.selectFilters}
         >
-          <option value="">Любая цена</option>
-          {pricesPerHour.map((p) => (
-            <option key={p.id} value={p.value}>
-              {p.label}
+          <option value="">Choose a price</option>
+          {priceOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Пробег от / до */}
-      <div style={{ display: "flex", gap: "8px", alignItems: "flex-end" }}>
-        <div>
-          <label
-            style={{ display: "block", fontSize: "14px", marginBottom: "4px" }}
-          >
-            Пробег от
-          </label>
+      {/* Car mileage / km */}
+      <div>
+        <label className={css.carBrandLabel}>Car mileage / km</label>
+        <div className={css.fromToContainer}>
           <input
             type="number"
-            placeholder="от"
+            placeholder="From"
             value={mileageFrom}
             onChange={(e) => setMileageFrom(e.target.value)}
-            style={{
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              width: "100px",
-            }}
+            className={css.inputFromTo}
           />
-        </div>
-        <div>
-          <label
-            style={{ display: "block", fontSize: "14px", marginBottom: "4px" }}
-          >
-            до
-          </label>
           <input
             type="number"
-            placeholder="до"
+            placeholder="To"
             value={mileageTo}
             onChange={(e) => setMileageTo(e.target.value)}
-            style={{
-              padding: "8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              width: "100px",
-            }}
+            className={css.inputFromTo}
           />
         </div>
       </div>
 
-      {/* Кнопки */}
-      <div style={{ display: "flex", gap: "8px", marginLeft: "auto" }}>
-        <button
-          onClick={applyFilters}
-          style={{
-            padding: "8px 16px",
-            background: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Поиск
+      {/* Btn Search & Reset */}
+      <div style={{ display: "flex", gap: "8px" }}>
+        <button onClick={applyFilters} className={css.btnSearch}>
+          Search
         </button>
-        <button
-          onClick={resetFilters}
-          style={{
-            padding: "8px 16px",
-            background: "#6c757d",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Сбросить
+        <button onClick={resetFilters} className={css.btnReset}>
+          Reset
         </button>
       </div>
     </div>

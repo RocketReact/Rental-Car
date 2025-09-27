@@ -6,9 +6,12 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavoritesStore from "../../lib/store/favoritesStore.js";
 import Loader from "../Loader/Loader.tsx";
 import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton.jsx";
+import { useFiltersStore } from "../../lib/store/filtersStore.js";
+import Filters from "../Filters/Filters.jsx"; // Добавляем импорт
 
 export default function Catalog() {
   const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
+  const { appliedFilters } = useFiltersStore();
   const { favorites, toggleFavorite } = useFavoritesStore();
   const lastCarRef = useRef(null);
   const prevCarsLength = useRef(cars.length);
@@ -17,19 +20,24 @@ export default function Catalog() {
     const params = {
       page: 1,
       limit: 12,
+      brand: appliedFilters.brand,
+      maxPrice: appliedFilters.pricePerHour,
+      mileageFrom: appliedFilters.mileageFrom,
+      mileageTo: appliedFilters.mileageTo,
     };
 
     fetchCars(params);
-  }, [fetchCars]);
+  }, [fetchCars, appliedFilters]);
 
+  console.log(cars.map((c) => c.rentalPrice));
   const handleLoadMore = (e) => {
     e.preventDefault();
     prevCarsLength.current = cars.length;
     loadMoreCars();
   };
+
   useEffect(() => {
     if (cars.length > prevCarsLength.current && lastCarRef.current) {
-      // Прокручиваем к первой из новых машин
       const newCarIndex = prevCarsLength.current;
       const newCarElement = document.querySelector(
         `[data-car-index="${newCarIndex}"]`,
@@ -40,19 +48,51 @@ export default function Catalog() {
     }
   }, [cars.length]);
 
-  if (loading) return <Loader />;
+  // Фильтрация автомобилей
+  const filteredCars = cars.filter((car) => {
+    // --- фильтр по бренду ---
+    if (
+      appliedFilters.brand &&
+      car.brand.toLowerCase() !== appliedFilters.brand.toLowerCase()
+    ) {
+      return false;
+    }
+
+    // фильтр по цене
+    if (
+      appliedFilters.pricePerHour &&
+      parseFloat(car.rentalPrice) > parseFloat(appliedFilters.pricePerHour)
+    ) {
+      return false;
+    }
+
+    // фильтр по пробегу
+    const carMileage = parseFloat(car.mileage);
+    const mileageFrom = parseFloat(appliedFilters.mileageFrom);
+    const mileageTo = parseFloat(appliedFilters.mileageTo);
+
+    if (appliedFilters.mileageFrom && carMileage < mileageFrom) {
+      return false;
+    }
+    return !(appliedFilters.mileageTo && carMileage > mileageTo);
+  });
+
+  if (loading && cars.length === 0) return <Loader />;
 
   return (
     <section className={css.containerCatalog}>
+      {/* Добавляем компонент фильтров */}
+      <Filters />
+
       <ul className={css.carsContainer}>
-        {cars.map((car, index) => {
+        {filteredCars.map((car, index) => {
           const isFavorite = favorites.some((p) => p.id === car.id);
           return (
             <li
               key={car.id}
               className={css.carItem}
               data-car-index={index}
-              ref={index === cars.length - 1 ? lastCarRef : null}
+              ref={index === filteredCars.length - 1 ? lastCarRef : null}
             >
               <img
                 className={css.img}
@@ -91,8 +131,17 @@ export default function Catalog() {
           );
         })}
       </ul>
+
+      {/* Показываем сообщение если нет результатов после фильтрации */}
+      {filteredCars.length === 0 && cars.length > 0 && (
+        <p className={css.noResults}>
+          No cars found matching your filters. Try adjusting your search
+          criteria.
+        </p>
+      )}
+
       <div className={css.containerLoadMore}>
-        {hasMore && (
+        {hasMore && filteredCars.length > 0 && (
           <button
             onClick={handleLoadMore}
             className={css.loadMore}
@@ -102,7 +151,11 @@ export default function Catalog() {
           </button>
         )}
       </div>
-      {!hasMore && <p className={css.noAvailable}>No more cars available</p>}
+
+      {!hasMore && filteredCars.length > 0 && (
+        <p className={css.noAvailable}>No more cars available</p>
+      )}
+
       <ScrollToTopButton />
     </section>
   );

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function Banner() {
   const { pathname } = useLocation();
 
-  //Dont scroll by y-coordinate
+  //Dont scroll => y-coordinate
   useEffect(() => {
     if (pathname === "/") {
       document.body.style.overflow = "hidden";

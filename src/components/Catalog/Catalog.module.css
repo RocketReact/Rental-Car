@@ -97,7 +97,6 @@
   box-shadow: 0 4px 10px rgba(1, 153, 252, 0.5);
   transition: transform 0.3s;
 }
-
 .scrollButton:hover {
   transform: scale(1.1);
 }
