@@ -4,6 +4,7 @@ import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavoritesStore from "../../lib/store/favoritesStore.js";
+
 export default function Catalog() {
   const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
   const { favorites, toggleFavorite } = useFavoritesStore();

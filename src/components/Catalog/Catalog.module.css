@@ -2,7 +2,6 @@
   padding: 0 120px;
   min-height: 192vh;
 }
-
 .carsContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 в ряд */
@@ -64,7 +63,6 @@
   top: 16px;
   right: 16px;
 }
-
 .heart {
   filter: drop-shadow(0 0 3px black);
 }
@@ -75,5 +73,5 @@
   color: white; /* обводка белая */
 }
 .filled {
-  color:var(--button); /* закрашенное синее */
+  color: var(--button); /* закрашенное синее */
 }
