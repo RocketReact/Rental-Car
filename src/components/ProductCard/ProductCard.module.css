@@ -1,0 +1,45 @@
+.productCardDiv {
+    margin-top: 84px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 72px;
+}
+.oneCarImg {
+    width: 640px;
+    height: 512px;
+    border-radius: 16px ;
+}
+.firstTitle {
+    margin-bottom: 8px;
+}
+.secondTitle {
+    margin-bottom: 16px;
+}
+.priceContainer {
+    margin-bottom: 32px;
+}
+.description {
+    max-width: 45ch;
+    margin-bottom: 68px;
+}
+.mainConditionsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 110px;
+}
+.rentalConditionsParagraph {
+    margin-bottom: 20px;
+}
+.checkCircle {
+    margin-right: 6px;
+}
+.oneCondition {
+    display: flex;
+    align-items: center;
+}
+.rentalConditionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
