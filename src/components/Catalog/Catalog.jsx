@@ -1,10 +1,11 @@
 import useCarsStore from "../../lib/store/carsStore.js";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavoritesStore from "../../lib/store/favoritesStore.js";
 import Loader from "../Loader/Loader.tsx";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton.jsx";
 
 export default function Catalog() {
   const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
@@ -101,6 +102,8 @@ export default function Catalog() {
           </button>
         )}
       </div>
+      {!hasMore && <p className={css.noAvailable}>No more cars available</p>}
+      <ScrollToTopButton />
     </section>
   );
 }
