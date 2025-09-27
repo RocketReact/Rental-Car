@@ -1,5 +1,5 @@
 import useCarsStore from "../../lib/store/carsStore.js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
