@@ -4,18 +4,21 @@ import Home from "./components/Home/Home.jsx";
 import Catalog from "./components/Catalog/Catalog.jsx";
 import ProductCard from "./components/ProductCard/ProductCard.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
+import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (
     <>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/cars/:id" element={<ProductCard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+      <HelmetProvider>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/cars/:id" element={<ProductCard />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </HelmetProvider>
     </>
   );
 }

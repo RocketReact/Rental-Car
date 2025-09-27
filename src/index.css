@@ -1,8 +1,6 @@
 @import "@fontsource-variable/manrope";
 @import "@fontsource-variable/inter";
 :root {
-  --font-manrope: "Manrope", sans-serif;
-  --font-inter: "Inter", sans-serif;
   --main: #101828;
   --gray: #8d929a;
   --gray-light: #dadde1;
@@ -15,7 +13,7 @@
 html,
 body {
   height: 100%;
-  font-family: var(--font-manrope), sans-serif;
+  font-family: "Manrope Variable", Manrope, "Inter Variable", Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--main);
   font-size: 16px;
   font-weight: 500;

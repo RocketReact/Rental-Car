@@ -24,7 +24,7 @@ export default function Banner() {
         src={bannerImg}
         alt="Banner"
         className={css.bannerImg}
-        fetchpriority="high"
+        fetchPriority="high"
         decoding="async"
       />
       <div className={css.textBannerContainer}>
