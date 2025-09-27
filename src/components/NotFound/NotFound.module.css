@@ -1,0 +1,28 @@
+.mainContainerNotFound {
+    text-align: center;
+    margin-top: 70px;
+
+}
+
+.notFoundFirstTittle {
+    font-size: 12rem;
+    text-align: center;
+    color: var(--button);
+    margin-bottom: 4rem;
+
+}
+.notFoundDescription {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+.notFoundSecondTittle {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.btnNotFound {
+    padding: 12px 40px;
+}
+.notFoundImg {
+    margin-bottom: 2rem;;
+}
