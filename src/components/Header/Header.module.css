@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--badges);
+  max-height: 68px;
 }
 
 .container {
@@ -14,8 +15,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 32px;
-
-
 }
 .menu > * {
   padding: 25px 0;

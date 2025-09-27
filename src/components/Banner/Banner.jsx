@@ -1,7 +1,23 @@
 import css from "./Banner.module.css";
 import bannerImg from "../../../public/Banner.webp";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 export default function Banner() {
+  const { pathname } = useLocation();
+
+  //Dont scroll by y-coordinate
+  useEffect(() => {
+    if (pathname === "/") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [pathname]);
+
   return (
     <div className={css.banner}>
       <img
