@@ -4,7 +4,6 @@ import Home from "./components/Home/Home.jsx";
 import Catalog from "./components/Catalog/Catalog.jsx";
 import ProductCard from "./components/ProductCard/ProductCard.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
-import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (
     <>
