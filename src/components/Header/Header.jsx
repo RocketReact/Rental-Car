@@ -1,5 +1,5 @@
 import css from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import RentalCar from "/RentalCar.svg";
 const Header = () => {
   return (
@@ -8,10 +8,20 @@ const Header = () => {
         <Link to="/">
           <img src={RentalCar} alt="Rental Car" />
         </Link>
-        <menu className={css.menu}>
-          <Link to="/">Home</Link>
-          <Link to="/catalog">Catalog</Link>
-        </menu>
+        <div className={css.menu}>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? css.active : "")}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) => (isActive ? css.active : "")}
+          >
+            Catalog
+          </NavLink>
+        </div>
       </nav>
     </header>
   );
