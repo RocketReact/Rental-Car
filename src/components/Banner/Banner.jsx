@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 export default function Banner() {
   return (
     <div className={css.banner}>
-      <img src={bannerImg} alt="Banner" className={css.bannerImg} />
+      <img
+        src={bannerImg}
+        alt="Banner"
+        className={css.bannerImg}
+        loading="lazy"
+      />
       <div className={css.textBannerContainer}>
         <h1 className={css.firstBannerTitle}>Find your perfect rental car</h1>
         <h2 className={css.secondBannerTitle}>
