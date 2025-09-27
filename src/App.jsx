@@ -8,17 +8,15 @@ import { HelmetProvider } from "react-helmet-async";
 function App() {
   return (
     <>
-      <HelmetProvider>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/cars/:id" element={<ProductCard />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </HelmetProvider>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/cars/:id" element={<ProductCard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
     </>
   );
 }
