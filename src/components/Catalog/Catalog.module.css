@@ -64,9 +64,11 @@
 }
 .heart {
   filter: drop-shadow(0 0 3px black);
+  transition: transform 0.5s ease;
 }
 .heart:hover {
   cursor: pointer;
+  transform: scale(1.09);
 }
 .outlined {
   color: white; /* обводка белая */
