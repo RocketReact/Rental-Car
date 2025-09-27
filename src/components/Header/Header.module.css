@@ -8,6 +8,7 @@
 .container {
   padding: 0 120px;
   background-color: var(--badges);
+  border-bottom: 4px solid var(--white);
 }
 .menu {
   display: flex;
