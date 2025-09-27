@@ -1,7 +1,8 @@
 @import "@fontsource-variable/manrope";
-
+@import "@fontsource-variable/inter";
 :root {
   --font-manrope: "Manrope", sans-serif;
+  --font-inter: "Inter", sans-serif;
   --main: #101828;
   --gray: #8d929a;
   --gray-light: #dadde1;
@@ -16,6 +17,10 @@ body {
   height: 100%;
   font-family: var(--font-manrope), sans-serif;
   color: var(--main);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0;
 }
 button {
   background-color: var(--button);
