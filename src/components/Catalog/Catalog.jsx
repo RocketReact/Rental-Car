@@ -4,6 +4,7 @@ import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavoritesStore from "../../lib/store/favoritesStore.js";
+import Loader from "../Loader/Loader.tsx";
 
 export default function Catalog() {
   const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
@@ -38,7 +39,7 @@ export default function Catalog() {
     }
   }, [cars.length]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader />;
 
   return (
     <section className={css.containerCatalog}>
