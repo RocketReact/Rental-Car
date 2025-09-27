@@ -14,16 +14,34 @@
 }
 .firstTitle {
     margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+.carID {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray);
 }
 .secondTitle {
     margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
 }
 .priceContainer {
     margin-bottom: 32px;
+    color:var(--button);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
 }
 .description {
     max-width: 45ch;
     margin-bottom: 68px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
 }
 .mainConditionsContainer{
     display: flex;
@@ -32,6 +50,9 @@
 }
 .conditionsThirdTitle {
     margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
 }
 .checkCircle {
     margin-right: 8px;
@@ -39,6 +60,8 @@
 .oneCondition {
     display: flex;
     align-items: center;
+    font-size: 16px;
+    font-weight: 500;
 }
 .rentalConditionContainer {
     display: flex;
@@ -66,6 +89,9 @@
 }
 .bookingTitle {
     margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
 }
 .bookingInput {
     width: 100%;
@@ -76,11 +102,25 @@
     background-color: var(--inputs);
     border-radius: 12px;
 }
-.bookingInput::placeholder {
+.bookingInput[type="date"] {
     color: var(--gray);
+}
+
+/* Когда дата выбрана - меняем цвет */
+.bookingInput[type="date"]:not([value=""]) {
+    color: var(--main);
+}
+
+/* При фокусе */
+.bookingInput[type="date"]:focus {
+    color: var(--main);
 }
 .bookingParagraph {
     margin-bottom: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--gray);
 }
 .bookingInputContainer {
     display: flex;
@@ -94,6 +134,9 @@
     padding: 12px 51px;
     width: 156px;
     height: 44px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
 
 }
 .try {

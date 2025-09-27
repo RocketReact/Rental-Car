@@ -10,6 +10,7 @@ export default function Catalog() {
   const { favorites, toggleFavorite } = useFavoritesStore();
   const lastCarRef = useRef(null);
   const prevCarsLength = useRef(cars.length);
+
   useEffect(() => {
     const params = {
       page: 1,

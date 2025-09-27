@@ -24,7 +24,6 @@
 }
 .textBannerContainer > * {
   color: var(--white);
-  font-family: var(--font-manrope), sans-serif;
   letter-spacing: 0;
 }
 .firstBannerTitle {

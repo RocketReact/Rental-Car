@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCarById } from "../../lib/api/cars.js";
 import css from "./ProductCard.module.css";
@@ -14,6 +14,11 @@ import * as Yup from "yup";
 export default function ProductCard() {
   const { id } = useParams();
   const [car, setCar] = useState({});
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   useEffect(() => {
     async function fetchProduct() {
       const data = await getCarById(id);
@@ -28,8 +33,13 @@ export default function ProductCard() {
       .max(20, "To long name")
       .required("Write your name is required"),
     email: Yup.string()
-      .email("Wrong email")
+      .email(
+        "Please enter a valid email (e.g., user@gmail.com or user@domain.com)",
+      )
       .required("Write your email is required"),
+    textarea: Yup.string()
+      .min(20, "To short message")
+      .max(500, "To long message"),
   });
   console.log(car?.data);
   //get car id from img url
@@ -100,14 +110,21 @@ export default function ProductCard() {
                     type="date" // можно использовать datepicker библиотеку
                     name="bookingDate"
                     className={css.bookingInput}
-                    placeholder="Booking date"
+                    data-placeholder="Booking date"
                   />
-                  <Field
-                    as="textarea"
-                    name="comment"
-                    placeholder="Comment"
-                    className={css.bookingInput}
-                  />
+                  <>
+                    <Field
+                      as="textarea"
+                      name="textarea"
+                      placeholder="Comment"
+                      className={css.bookingInput}
+                    />
+                    <ErrorMessage
+                      name="textarea"
+                      component="div"
+                      style={{ color: "red" }}
+                    />
+                  </>
                 </div>
                 <button className={css.btnBookingSubmit} type="submit">
                   Send
@@ -117,9 +134,10 @@ export default function ProductCard() {
           </div>
         </div>
         <div className={css.oneCarMainTextContainer}>
-          <div className={css.firstTitle}>
-            {car?.data?.brand} {car?.data?.model}, {car?.data?.year} Id: {carID}
-          </div>
+          <h2 className={css.firstTitle}>
+            {car?.data?.brand} {car?.data?.model}, {car?.data?.year}{" "}
+            <span className={css.carID}>Id: {carID}</span>
+          </h2>
           <div className={css.secondTitle}>
             <SlLocationPin />{" "}
             {car?.data?.address
