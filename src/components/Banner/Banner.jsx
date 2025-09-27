@@ -9,6 +9,7 @@ export default function Banner() {
         alt="Banner"
         className={css.bannerImg}
         loading="lazy"
+        fetchpriority="high"
       />
       <div className={css.textBannerContainer}>
         <h1 className={css.firstBannerTitle}>Find your perfect rental car</h1>
