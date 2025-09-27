@@ -8,7 +8,6 @@ export default function Banner() {
         src={bannerImg}
         alt="Banner"
         className={css.bannerImg}
-        loading="lazy"
         fetchpriority="high"
         decoding="async"
       />
