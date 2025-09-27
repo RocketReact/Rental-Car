@@ -5,9 +5,12 @@ import css from "./ProductCard.module.css";
 import { SlLocationPin } from "react-icons/sl";
 import checkCircle from "/check-circle.svg";
 import calendar from "/calendar.svg";
-import caricon from "/car.svg";
+import carIcon from "/car.svg";
 import fuel from "/fuel-pump.svg";
 import gear from "/gear.svg";
+import { Field, Form, Formik, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
 export default function ProductCard() {
   const { id } = useParams();
   const [car, setCar] = useState({});
@@ -19,17 +22,103 @@ export default function ProductCard() {
     fetchProduct();
   }, [id]);
 
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(2, "To short name")
+      .max(20, "To long name")
+      .required("Write your name is required"),
+    email: Yup.string()
+      .email("Wrong email")
+      .required("Write your email is required"),
+  });
   console.log(car?.data);
+  //get car id from img url
+
+  const imgUrl = car?.data?.img;
+  const extractCarId = (imgUrl) => {
+    const match = imgUrl?.match(/\/(\d{4})-/);
+    return match ? match[1] : null;
+  };
+  const carID = extractCarId(imgUrl);
+
+  function handleSendBooking() {}
 
   if (!car) return <p>Загрузка...</p>;
   return (
     <div className="container">
       <div className={css.productCardDiv}>
-        <img src={car?.data?.img} className={css.oneCarImg} alt="" />
-        <div>
+        <div className={css.imgAndBookingFormContainer}>
+          <img
+            src={car?.data?.img}
+            className={css.oneCarImg}
+            alt={`Rental Car ${car?.data?.brand} ${car?.data?.model}`}
+          />
+          <div className={css.bookingFormContainer}>
+            <h3 className={css.bookingTitle}>Book your car now</h3>
+            <p className={css.bookingParagraph}>
+              Stay connected! We are always ready to help you.
+            </p>
+            <Formik
+              onSubmit={handleSendBooking}
+              validationSchema={validationSchema}
+              initialValues={{
+                name: "",
+                email: "",
+                bookingDate: "",
+                comment: "",
+              }}
+            >
+              <Form className={css.try}>
+                <div className={css.bookingInputContainer}>
+                  <>
+                    <Field
+                      type="text"
+                      name="name"
+                      className={css.bookingInput}
+                      placeholder="Name*"
+                    />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      style={{ color: "red" }}
+                    />
+                  </>
+                  <>
+                    <Field
+                      type="email"
+                      name="email"
+                      className={css.bookingInput}
+                      placeholder="Email*"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      style={{ color: "red" }}
+                    />
+                  </>
+                  <Field
+                    type="date" // можно использовать datepicker библиотеку
+                    name="bookingDate"
+                    className={css.bookingInput}
+                    placeholder="Booking date"
+                  />
+                  <Field
+                    as="textarea"
+                    name="comment"
+                    placeholder="Comment"
+                    className={css.bookingInput}
+                  />
+                </div>
+                <button className={css.btnBookingSubmit} type="submit">
+                  Send
+                </button>
+              </Form>
+            </Formik>
+          </div>
+        </div>
+        <div className={css.oneCarMainTextContainer}>
           <div className={css.firstTitle}>
-            {car?.data?.brand} {car?.data?.model}, {car?.data?.year} id:{" "}
-            {car?.data?.id.slice(0, 4)}
+            {car?.data?.brand} {car?.data?.model}, {car?.data?.year} Id: {carID}
           </div>
           <div className={css.secondTitle}>
             <SlLocationPin />{" "}
@@ -72,7 +161,7 @@ export default function ProductCard() {
                 </li>
                 <li>
                   <img
-                    src={caricon}
+                    src={carIcon}
                     alt="condition"
                     className={css.checkCircle}
                   />

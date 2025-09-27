@@ -3,12 +3,14 @@
     display: flex;
     flex-wrap: wrap;
     column-gap: 72px;
-    min-height: 130vh;
+    min-height: 140vh;
+    justify-content: flex-start;
 }
 .oneCarImg {
     width: 640px;
     height: 512px;
-    border-radius: 16px ;
+    border-radius: 16px;
+    margin-bottom: 40px;
 }
 .firstTitle {
     margin-bottom: 8px;
@@ -43,8 +45,59 @@
     flex-direction: column;
     gap: 16px;
 }
-
 .rentalConditionContainer *{
     display: flex;
+    align-items: center;
+}
+.oneCarMainTextContainer {
+    text-align: left;
+}
+.imgAndBookingFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.bookingFormContainer {
+    border: 1px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 32px;
+    min-width: 640px;
+    min-height: 488px;
+}
+.bookingTitle {
+    margin-bottom: 8px;
+}
+.bookingInput {
+    width: 100%;
+    min-height: 48px;
+    padding:12px 20px;
+    outline: none;
+    border: none;
+    background-color: var(--inputs);
+    border-radius: 12px;
+}
+.bookingInput::placeholder {
+    color: var(--gray);
+}
+.bookingParagraph {
+    margin-bottom: 24px;
+}
+.bookingInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.btnBookingSubmit {
+    padding: 12px 51px;
+    width: 156px;
+    height: 44px;
+
+}
+.try {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
