@@ -4,6 +4,10 @@ import { getCarById } from "../../lib/api/cars.js";
 import css from "./ProductCard.module.css";
 import { SlLocationPin } from "react-icons/sl";
 import checkCircle from "/check-circle.svg";
+import calendar from "/calendar.svg";
+import caricon from "/car.svg";
+import fuel from "/fuel-pump.svg";
+import gear from "/gear.svg";
 export default function ProductCard() {
   const { id } = useParams();
   const [car, setCar] = useState({});
@@ -41,9 +45,7 @@ export default function ProductCard() {
 
           <div className={css.mainConditionsContainer}>
             <div>
-              <p className={css.rentalConditionsParagraph}>
-                Rental Conditions:
-              </p>
+              <h3 className={css.conditionsThirdTitle}>Rental Conditions:</h3>
               <ul className={css.rentalConditionContainer}>
                 {car?.data?.rentalConditions.map((condition, index) => (
                   <li key={index} className={css.oneCondition}>
@@ -57,8 +59,52 @@ export default function ProductCard() {
                 ))}
               </ul>
             </div>
-            <div>Car Specifications:</div>
-            <div>Accessories and functionalities:</div>
+            <div>
+              <h3 className={css.conditionsThirdTitle}>Car Specifications:</h3>
+              <ul className={`${css.rentalConditionContainer}`}>
+                <li>
+                  <img
+                    src={calendar}
+                    alt="condition"
+                    className={css.checkCircle}
+                  />
+                  Year: {car?.data?.year}
+                </li>
+                <li>
+                  <img
+                    src={caricon}
+                    alt="condition"
+                    className={css.checkCircle}
+                  />
+                  Type: {car?.data?.type}
+                </li>
+                <li>
+                  <img src={fuel} alt="condition" className={css.checkCircle} />
+                  Fuel Consumption: {car?.data?.fuelConsumption}
+                </li>
+                <li>
+                  <img src={gear} alt="condition" className={css.checkCircle} />
+                  Engine Size: {car?.data?.engineSize}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className={css.conditionsThirdTitle}>
+                Accessories and functionalities:
+              </h3>
+              <ul className={css.rentalConditionContainer}>
+                {car?.data?.accessories.map((condition, index) => (
+                  <li key={index} className={css.oneCondition}>
+                    <img
+                      src={checkCircle}
+                      alt="accessories condition"
+                      className={css.checkCircle}
+                    />
+                    {condition}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
