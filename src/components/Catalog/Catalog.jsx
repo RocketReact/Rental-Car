@@ -1,5 +1,5 @@
 import useCarsStore from "../../lib/store/carsStore.js";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -7,7 +7,7 @@ import useFavoritesStore from "../../lib/store/favoritesStore.js";
 import Loader from "../Loader/Loader.tsx";
 import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton.jsx";
 import { useFiltersStore } from "../../lib/store/filtersStore.js";
-import Filters from "../Filters/Filters.jsx"; // Добавляем импорт
+import Filters from "../Filters/Filters.jsx";
 
 export default function Catalog() {
   const { cars, loading, fetchCars, loadMoreCars, hasMore } = useCarsStore();
@@ -15,6 +15,7 @@ export default function Catalog() {
   const { favorites, toggleFavorite } = useFavoritesStore();
   const lastCarRef = useRef(null);
   const prevCarsLength = useRef(cars.length);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
     const params = {
@@ -30,14 +31,21 @@ export default function Catalog() {
   }, [fetchCars, appliedFilters]);
 
   console.log(cars.map((c) => c.rentalPrice));
+
   const handleLoadMore = (e) => {
     e.preventDefault();
     prevCarsLength.current = cars.length;
+    setIsLoadingMore(true);
     loadMoreCars();
   };
 
   useEffect(() => {
-    if (cars.length > prevCarsLength.current && lastCarRef.current) {
+    // Прокрутка только если была нажата кнопка Load More
+    if (
+      isLoadingMore &&
+      cars.length > prevCarsLength.current &&
+      lastCarRef.current
+    ) {
       const newCarIndex = prevCarsLength.current;
       const newCarElement = document.querySelector(
         `[data-car-index="${newCarIndex}"]`,
@@ -45,8 +53,9 @@ export default function Catalog() {
       if (newCarElement) {
         newCarElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+      setIsLoadingMore(false);
     }
-  }, [cars.length]);
+  }, [cars.length, isLoadingMore]);
 
   // Фильтрация автомобилей
   const filteredCars = cars.filter((car) => {
@@ -81,7 +90,6 @@ export default function Catalog() {
 
   return (
     <section className={css.containerCatalog}>
-      {/* Добавляем компонент фильтров */}
       <Filters />
 
       <ul className={css.carsContainer}>
