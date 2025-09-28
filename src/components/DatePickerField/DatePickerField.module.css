@@ -1,0 +1,40 @@
+
+.dataPicker {
+    background-color: var(--inputs);
+    width: 100%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.calendar {
+    padding-right: 20px;
+}
+.calendar:hover {
+    cursor: pointer;
+}
+.bookingInputData {
+    width: 100%;
+    height: 100%;
+    min-height: 48px;
+    padding:12px 20px;
+    outline: none;
+    border: none;
+    background-color: var(--inputs);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.bookingInputData[type="date"] {
+    color: var(--gray);
+}
+
+/* Когда дата выбрана - меняем цвет */
+.bookingInputData[type="date"]:not([value=""]) {
+    color: var(--main);
+}
+
+/* При фокусе */
+.bookingInputData[type="date"]:focus {
+    color: var(--main);
+}

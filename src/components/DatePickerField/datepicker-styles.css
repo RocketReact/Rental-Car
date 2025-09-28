@@ -1,0 +1,23 @@
+/* Импорт стандартных стилей react-datepicker */
+@import "react-datepicker/dist/react-datepicker.css";
+
+/* Кастомные глобальные стили */
+.react-datepicker {
+    border: 2px solid var(--button);
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    padding: 10px;
+}
+
+.react-datepicker__header {
+    background-color: #47e581;
+    color: #fff;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+}
+
+.react-datepicker__day--selected {
+    background-color: #47e581;
+    color: #fff;
+}

@@ -93,28 +93,19 @@
     font-weight: 600;
     line-height: 1.2;
 }
+
 .bookingInput {
     width: 100%;
+    height: 100%;
     min-height: 48px;
     padding:12px 20px;
     outline: none;
     border: none;
     background-color: var(--inputs);
     border-radius: 12px;
-}
-.bookingInput[type="date"] {
-    color: var(--gray);
+    box-sizing: border-box;
 }
 
-/* Когда дата выбрана - меняем цвет */
-.bookingInput[type="date"]:not([value=""]) {
-    color: var(--main);
-}
-
-/* При фокусе */
-.bookingInput[type="date"]:focus {
-    color: var(--main);
-}
 .bookingParagraph {
     margin-bottom: 24px;
     font-size: 16px;
@@ -144,3 +135,4 @@
     flex-direction: column;
     align-items: center;
 }
+

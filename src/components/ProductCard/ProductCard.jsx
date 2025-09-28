@@ -12,10 +12,13 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "izitoast/dist/css/iziToast.min.css";
 import iziToast from "izitoast";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePickerField from "../DatePickerField/DatePickerField.jsx";
 
 export default function ProductCard() {
   const { id } = useParams();
   const [car, setCar] = useState({});
+  const [startDate, setStartDate] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -130,12 +133,7 @@ export default function ProductCard() {
                       style={{ color: "red" }}
                     />
                   </>
-                  <Field
-                    type="date" // можно использовать datepicker библиотеку
-                    name="bookingDate"
-                    className={css.bookingInput}
-                    data-placeholder="Booking date"
-                  />
+                  <DatePickerField name="bookingDate" />
                   <>
                     <Field
                       as="textarea"
