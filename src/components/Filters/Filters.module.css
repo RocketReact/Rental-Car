@@ -37,7 +37,18 @@
   padding: 12px 0 12px 24px;
   width: 160px;
   background-color: var(--inputs);
+  outline: none;
 }
+.inputFromTo[type="number"]::-webkit-inner-spin-button,
+.inputFromTo[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.inputFromTo[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .inputFromTo:first-child {
   border-right: 1px solid #ccc; /* разделитель между полями */
 }
