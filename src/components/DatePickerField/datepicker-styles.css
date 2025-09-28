@@ -1,23 +1,179 @@
 /* Импорт стандартных стилей react-datepicker */
 @import "react-datepicker/dist/react-datepicker.css";
 
-/* Кастомные глобальные стили */
+/* Базовый контейнер календаря */
 .react-datepicker {
-    border: 2px solid var(--button);
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: var(--white);
+    border: 1px solid var(--button);
     border-radius: 12px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    padding: 10px;
+    padding: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Верхняя панель */
 .react-datepicker__header {
-    background-color: #47e581;
-    color: #fff;
+    background-color: var(--white);
     border-bottom: none;
-    border-radius: 12px 12px 0 0;
+    padding-top: 12px;
 }
 
+/* Заголовок месяца */
+.react-datepicker__current-month {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Дни недели */
+.react-datepicker__day-name {
+    width: 36px;
+    line-height: 32px;
+    font-weight: 500;
+    color: var(--button);
+}
+
+/* Кнопки переключения месяцев */
+.react-datepicker__navigation {
+    top: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Сами стрелки (толстые и цветные) */
+.react-datepicker__navigation-icon::before {
+    border-color: var(--button);
+    border-width: 0 2px 2px 0;
+}
+
+/* Левая стрелка ← */
+.react-datepicker__navigation--previous .react-datepicker__navigation-icon::before {
+    transform: rotate(135deg) translate(-2px, -2px);
+}
+
+/* Правая стрелка → */
+.react-datepicker__navigation--next .react-datepicker__navigation-icon::before {
+    transform: rotate(-45deg) translate(-2px, -2px);
+}
+
+/* Убираем hover-эффект с кнопок навигации */
+.react-datepicker__navigation:hover {
+    background: none !important;
+}
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+    border-color: var(--button) !important;
+}
+
+/* Дни */
+.react-datepicker__day {
+    width: 36px;
+    line-height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover ТОЛЬКО для новых (не выбранных и не сегодняшних) дат — серый круг */
+.react-datepicker__day:hover:not(.react-datepicker__day--selected):not(.react-datepicker__day--today) {
+    background-color: #e0e0e0 !important;
+    border-radius: 50% !important;
+}
+
+/* Реально выбранный день — только он подсвечивается */
 .react-datepicker__day--selected {
-    background-color: #47e581;
-    color: #fff;
+    background-color: var(--button) !important;
+    color: var(--white) !important;
+    font-weight: 600 !important;
+    border-radius: 50% !important;
+}
+
+/* У выбранной даты — никаких изменений на hover */
+.react-datepicker__day--selected:hover {
+    background-color: var(--button) !important;
+    color: var(--white) !important;
+    border-radius: 50% !important;
+}
+
+/* НЕ подсвечивать keyboard-selected (иначе такой же номер дня в другом месяце кажется “выбранным”) */
+.react-datepicker__day--keyboard-selected:not(.react-datepicker__day--selected) {
+    background: transparent !important;
+    color: inherit !important;
+    border-radius: 50% !important;
+}
+.react-datepicker__day--keyboard-selected:not(.react-datepicker__day--selected):hover {
+    background-color: #e0e0e0 !important;
+    border-radius: 50% !important;
+}
+
+/* Сегодня — без hover-изменений */
+.react-datepicker__day--today {
+    border: 1px solid var(--button);
+    font-weight: 600;
+    color: var(--button);
+    border-radius: 50% !important;
+}
+.react-datepicker__day--today:hover {
+    background: transparent !important;
+    border: 1px solid var(--button) !important;
+    color: var(--button) !important;
+    border-radius: 50% !important;
+}
+/* Скоуп календаря */
+.dp-cal .react-datepicker__day {
+    width: 36px;
+    line-height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* УБИТЬ подсветку "keyboard-selected" (тот самый дубль дня в других месяцах) */
+.dp-cal .react-datepicker__day--keyboard-selected {
+    background: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+    border-radius: 50% !important;
+}
+
+/* Наши собственные классы для реального выбора и "сегодня" */
+.dp-cal .dp-selected {
+    background-color: var(--button) !important;
+    color: var(--white) !important;
+    font-weight: 600;
+    border-radius: 50% !important;
+}
+.dp-cal .dp-selected:hover {
+    background-color: var(--button) !important;
+    color: var(--white) !important;
+    border-radius: 50% !important;
+}
+
+.dp-cal .dp-today {
+    border: 1px solid var(--button);
+    color: var(--button);
+    border-radius: 50% !important;
+}
+.dp-cal .dp-today:hover {
+    background: transparent !important;
+    border: 1px solid var(--button) !important;
+    color: var(--button) !important;
+    border-radius: 50% !important;
+}
+
+/* Hover только для других дней (не выбранных и не "сегодня") */
+.dp-cal .react-datepicker__day:hover:not(.dp-selected):not(.dp-today) {
+    background-color: #e0e0e0 !important;
+    border-radius: 50% !important;
+}
+
+/* На всякий случай: даже если либу занесёт и она проставит selected в другом месяце */
+.dp-cal .react-datepicker__day--selected:not(.dp-selected),
+.dp-cal .react-datepicker__day--selected:not(.dp-selected):hover {
+    background: transparent !important;
+    color: inherit !important;
+    border-radius: 50% !important;
 }
