@@ -13,7 +13,6 @@ export default function NotFound() {
     }
     fetchProduct();
   }, []);
-  console.log(brands);
   return (
     <div className={css.mainContainerNotFound}>
       <h1 className={css.notFoundFirstTittle}>404</h1>

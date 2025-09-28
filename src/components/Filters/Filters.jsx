@@ -28,7 +28,6 @@ const Filters = () => {
     const fetchBrands = async () => {
       try {
         const res = await getCarsBrand();
-        console.log("Brands array:", res.data);
         setBrands(res.data || []);
       } catch (err) {
         console.error("Ошибка загрузки брендов:", err);
@@ -62,7 +61,6 @@ const Filters = () => {
         <select
           value={brand}
           onChange={(e) => {
-            console.log("Selected brand:", e.target.value);
             setBrand(e.target.value);
           }}
           className={css.selectFilters}

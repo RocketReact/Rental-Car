@@ -41,7 +41,6 @@ export default function ProductCard() {
       .min(20, "To short message")
       .max(500, "To long message"),
   });
-  console.log(car?.data);
   //get car id from img url
 
   const imgUrl = car?.data?.img;

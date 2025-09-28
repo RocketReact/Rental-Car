@@ -30,8 +30,6 @@ export default function Catalog() {
     fetchCars(params);
   }, [fetchCars, appliedFilters]);
 
-  console.log(cars.map((c) => c.rentalPrice));
-
   const handleLoadMore = (e) => {
     e.preventDefault();
     prevCarsLength.current = cars.length;
