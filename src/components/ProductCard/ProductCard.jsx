@@ -51,9 +51,14 @@ export default function ProductCard() {
     return match ? match[1] : null;
   };
   const carID = extractCarId(imgUrl);
-
-  function handleSendBooking(value) {
-    return localStorage.setItem("booking auto", JSON.stringify(value));
+  const carInfo = {
+    brand: car?.data?.brand,
+    model: car?.data?.model,
+    id: carID,
+    price: `${car?.data?.rentalPrice}$`,
+  };
+  function handleSendBooking(value, carInfo) {
+    localStorage.setItem("booking auto", JSON.stringify({ ...value, carInfo }));
   }
 
   if (!car) return <p>Загрузка...</p>;
@@ -73,18 +78,20 @@ export default function ProductCard() {
             </p>
             <Formik
               onSubmit={(values, { resetForm }) => {
-                handleSendBooking(values);
+                handleSendBooking(values, carInfo);
                 resetForm();
 
                 iziToast.success({
                   title: "Success",
-                  message:
-                    "We’ve received your message and will contact you soon!",
+                  message: `You booking: ${carInfo.brand} ${carInfo.model} vs price/1 hour:${carInfo.price} <br>
+                  We will contact you soon! 🏎️💨`,
                   position: "topRight",
-                  backgroundColor: "#47e581",
+                  backgroundColor: "#56EA79",
                   titleColor: "#fff",
                   messageColor: "#fff",
-                  timeout: 5000,
+                  timeout: 7000,
+                  titleFontSize: "25px",
+                  messageFontSize: "20px",
                 });
               }}
               validationSchema={validationSchema}
