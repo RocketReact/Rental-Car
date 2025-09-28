@@ -84,7 +84,7 @@ export default function ProductCard() {
                   backgroundColor: "#47e581",
                   titleColor: "#fff",
                   messageColor: "#fff",
-                  timeout: 3000,
+                  timeout: 5000,
                 });
               }}
               validationSchema={validationSchema}
