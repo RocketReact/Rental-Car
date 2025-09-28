@@ -10,6 +10,8 @@ import fuel from "/fuel-pump.svg";
 import gear from "/gear.svg";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import "izitoast/dist/css/iziToast.min.css";
+import iziToast from "izitoast";
 
 export default function ProductCard() {
   const { id } = useParams();
@@ -37,7 +39,7 @@ export default function ProductCard() {
         "Please enter a valid email (e.g., user@gmail.com or user@domain.com)",
       )
       .required("Write your email is required"),
-    textarea: Yup.string()
+    comment: Yup.string()
       .min(20, "To short message")
       .max(500, "To long message"),
   });
@@ -50,7 +52,9 @@ export default function ProductCard() {
   };
   const carID = extractCarId(imgUrl);
 
-  function handleSendBooking() {}
+  function handleSendBooking(value) {
+    return localStorage.setItem("booking auto", JSON.stringify(value));
+  }
 
   if (!car) return <p>Загрузка...</p>;
   return (
@@ -68,7 +72,21 @@ export default function ProductCard() {
               Stay connected! We are always ready to help you.
             </p>
             <Formik
-              onSubmit={handleSendBooking}
+              onSubmit={(values, { resetForm }) => {
+                handleSendBooking(values);
+                resetForm();
+
+                iziToast.success({
+                  title: "Success",
+                  message:
+                    "We’ve received your message and will contact you soon!",
+                  position: "topRight",
+                  backgroundColor: "#47e581",
+                  titleColor: "#fff",
+                  messageColor: "#fff",
+                  timeout: 3000,
+                });
+              }}
               validationSchema={validationSchema}
               initialValues={{
                 name: "",
@@ -114,12 +132,12 @@ export default function ProductCard() {
                   <>
                     <Field
                       as="textarea"
-                      name="textarea"
+                      name="comment"
                       placeholder="Comment"
                       className={css.bookingInput}
                     />
                     <ErrorMessage
-                      name="textarea"
+                      name="comment"
                       component="div"
                       style={{ color: "red" }}
                     />

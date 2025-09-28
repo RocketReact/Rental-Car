@@ -38,7 +38,6 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    // Прокрутка только если была нажата кнопка Load More
     if (
       isLoadingMore &&
       cars.length > prevCarsLength.current &&
@@ -55,9 +54,8 @@ export default function Catalog() {
     }
   }, [cars.length, isLoadingMore]);
 
-  // Фильтрация автомобилей
+  // Filters
   const filteredCars = cars.filter((car) => {
-    // --- фильтр по бренду ---
     if (
       appliedFilters.brand &&
       car.brand.toLowerCase() !== appliedFilters.brand.toLowerCase()
@@ -65,7 +63,7 @@ export default function Catalog() {
       return false;
     }
 
-    // фильтр по цене
+    // by price
     if (
       appliedFilters.pricePerHour &&
       parseFloat(car.rentalPrice) > parseFloat(appliedFilters.pricePerHour)
@@ -73,7 +71,7 @@ export default function Catalog() {
       return false;
     }
 
-    // фильтр по пробегу
+    // by mileage
     const carMileage = parseFloat(car.mileage);
     const mileageFrom = parseFloat(appliedFilters.mileageFrom);
     const mileageTo = parseFloat(appliedFilters.mileageTo);
@@ -138,7 +136,6 @@ export default function Catalog() {
         })}
       </ul>
 
-      {/* Показываем сообщение если нет результатов после фильтрации */}
       {filteredCars.length === 0 && cars.length > 0 && (
         <p className={css.noResults}>
           No cars found matching your filters. Try adjusting your search

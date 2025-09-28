@@ -23,7 +23,7 @@ const Filters = () => {
 
   const { cars } = useCarsStore();
 
-  // Загрузка брендов
+  // Load Brands
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -37,7 +37,7 @@ const Filters = () => {
     fetchBrands();
   }, [setBrands]);
 
-  // Извлечение уникальных цен из cars
+  // Take prices
   useEffect(() => {
     if (cars && cars.length > 0) {
       const uniquePrices = [...new Set(cars.map((car) => car.rentalPrice))]
